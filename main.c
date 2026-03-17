@@ -20,9 +20,13 @@ int main() {
     add_edge(G,4,7,11);
     add_edge(G,4,6,10);
     
-    printf("%d\n", exist_edge(G, 2, 3));
-
-    free_graph(G);
+    printf("%d\n", exist_edge(G, 4, 5));
+    // remove_edge(G, 4, 5);
+    // printf("%d\n", exist_edge(G, 4, 5));
+    
+    print_info(G);
+    printf("%d\n", max_neighbors(G));
+    delete_graph(G);
 
     return 0;
 }

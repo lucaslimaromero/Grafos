@@ -1,7 +1,41 @@
-#include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+
+typedef struct {
+    int num_vertices;
+    int **adj_matrix;
+} Graph;
+
+// Graph Constructor
+Graph *MyGraph(int num_vertices);
+
+// Add an edge: vertices are 1-based in the public API (1..num_vertices).
+void add_edge(Graph *G, int v1, int v2, int weight);
+
+// Verify if an edge exists between vertices v1 and v2 (1-based).
+int exist_edge(Graph *G, int v1, int v2);
+
+// Given a vertex (1-based), returns an array with all its neighbors
+int *neighbors(Graph *G, int v);
+
+// Given two vertices, we remove the edge between them (if it exists)
+void remove_edge(Graph *G, int v1, int v2);
+
+// Print the graph
+void print_info(Graph *G);
+
+// Return the vertice with max degree
+int max_neighbors(Graph *G);
+
+// Free graph memory
+void delete_graph(Graph *G); 
+
+// Adjacency matrix print
+void adjacency_matrix(Graph *G);
+
+
 
 static int to_internal_index(Graph *G, int v){
     if(v < 1 || v > G->num_vertices){
@@ -110,10 +144,6 @@ void print_info(Graph *G){
     }    
 }
 
-// void print_info(Graph *G){
-
-// }
-
 int max_neighbors(Graph *G){
     int max_neighbor_index = 0;
     int max_count = 0; // The value of the vertices of the vertice with max vertices
@@ -155,10 +185,55 @@ void adjacency_matrix(Graph *G){
 
 // Free graph memory
 void delete_graph(Graph *G){
+
     for(int i = 0; i < G->num_vertices; i++){
         free(G->adj_matrix[i]);
     }
 
     free(G->adj_matrix);
     free(G);
+}
+
+int main() {
+
+    int option;
+    int N, x, y, w;
+    Graph *G = NULL;
+
+    scanf("%d", &N);       // número de vértices
+    scanf("%d", &option);  // operação
+
+    switch(option) {
+
+        case 0:
+            G = MyGraph(N);
+            break;
+
+        case 1:
+            G = MyGraph(N);
+
+            // lê 4 arestas (igual exemplo do enunciado)
+            for(int i = 0; i < 4; i++){
+                scanf("%d %d %d", &x, &y, &w);
+                add_edge(G, x, y, w);
+            }
+            break;
+
+        case 2:
+            G = MyGraph(N);
+            scanf("%d %d %d", &x, &y, &w);
+            add_edge(G, x, y, w);
+            printf("%d\n", exist_edge(G, x, y));
+            break;
+
+        default:
+            printf("unrecognized option\n");
+    }
+
+    if(G != NULL){
+        print_info(G);   
+        delete_graph(G);
+    }
+
+    return 0;
 }
