@@ -65,4 +65,4 @@ diff out.txt expected.out
 
 ## 👨‍💻 Autor
 
-Seu Nome — Nº USP
+Lucas Lima Romero - 13676325
