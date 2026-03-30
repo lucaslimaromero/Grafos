@@ -92,27 +92,43 @@ void remove_edge(Graph *G, int v1, int v2){
 }
 
 void print_info(Graph *G){
-    printf("Vertices:\n");
+    printf("V = [");
     for(int i = 1; i <= G->num_vertices; i++) {
-        printf("%d ", i);
+        if(i != G->num_vertices)
+            printf("%d, ", i);
+        else
+            printf("%d]\n", i);
     }
 
-    printf("\n\nEdges:\n");
+    printf("E = [");
 
-    for(int i = 0; i < G->num_vertices; i++) {
-        for(int j = i; j < G->num_vertices; j++) {
-
-            if(G->adj_matrix[i][j] != -1) {
-                printf("%d --- %d (%d)\n",
-                       i+1, j+1, G->adj_matrix[i][j]); // 1-based correction
+    int first_edge = 1;
+    for(int j = 1; j < G->num_vertices; j++) {
+        for(int i = 0; i < j; i++) {
+            if(G->adj_matrix[i][j] != -1){
+                if(!first_edge)
+                    printf(", ");
+                printf("(%d, %d)", i+1, j+1);
+                first_edge = 0;
             }
         }
-    }    
+    }
+    printf("]\n");
 }
 
-// void print_info(Graph *G){
 
+// for(int i = 0; i < G->num_vertices; i++) {
+//     for(int j = i; j < G->num_vertices; j++) {
+//         if(G->adj_matrix[i][j] != -1){
+//             if(!first_edge)
+//                 printf(", ");
+//             printf("(%d, %d)", i+1, j+1);
+//             first_edge = 0;
+//         }
+//     }
 // }
+
+
 
 int max_neighbors(Graph *G){
     int max_neighbor_index = 0;
@@ -141,13 +157,17 @@ int max_neighbors(Graph *G){
 
 // Print the graph
 void adjacency_matrix(Graph *G){
-    printf("Number of vertices: %d\n", G->num_vertices);
+    
     printf("Adjacency Matrix:\n");
 
     //
     for(int i = 0; i < G->num_vertices; i++){
         for(int j = 0; j < G->num_vertices; j++){
-            printf("%2d ", G->adj_matrix[i][j]);
+
+            if(G->adj_matrix[i][j] == -1)
+                printf("%3d ", 0);
+            else
+                printf("%3d ", G->adj_matrix[i][j]);
         }
         printf("\n");
     }
@@ -155,6 +175,8 @@ void adjacency_matrix(Graph *G){
 
 // Free graph memory
 void delete_graph(Graph *G){
+    if(G == NULL) return;
+
     for(int i = 0; i < G->num_vertices; i++){
         free(G->adj_matrix[i]);
     }
