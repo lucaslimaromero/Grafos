@@ -66,4 +66,5 @@ diff out.txt expected.out
 ## 👨‍💻 Autor
 
 Lucas Lima Romero - 13676325
+
 Marcelo Eduardo Reginato - 13676965
