@@ -79,6 +79,13 @@ int main() {
             print_status = 0;
             break;
 
+        case 6:
+            last_op = 6;
+            print_status = 0;
+
+            res = max_neighbors(G);
+            break;
+
 
         default:
             printf("unrecognized option %d!\n", option);
@@ -109,6 +116,9 @@ int main() {
         }
         else if (last_op == 5) {
             adjacency_matrix(G);
+        }
+        else if(last_op == 6) {
+            printf("max vertex: %d\n", res);
         }
     }
     
