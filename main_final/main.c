@@ -227,7 +227,7 @@ int main() {
     int option;
     int N, x, y, w;
     
-    // Auxiliar variables
+    // Auxiliary variables
     int res;
     int *res_vec = NULL;
     int last_op = -1;
@@ -237,35 +237,36 @@ int main() {
     // Graph data structure
     Graph *G = NULL;
 
-    scanf("%d", &option);  // operação
+    scanf("%d", &option);  // operation
     while(option != -1)
     {
         switch(option) {
 
         case 0:
-            // a) Instanciar um grafo
+            // a) Initialize a graph
             scanf("%d", &N);       
             G = MyGraph(N);
             break;
 
         case 1:
 
-            // b) Criar aresta
+            // b) Create an edge
             scanf("%d %d %d", &x, &y, &w);
             add_edge(G, x, y, w);
             break;
 
         case 2:
-            // c) Verificar se aresta existe
+            // c) Check whether an edge exists
             
             scanf("%d %d", &x, &y);
             res = exist_edge(G, x, y);
             last_op = 2;
-            print_status = 0; // Vamos printar apenas no final
+            print_status = 0; // Print only at the end
+
             break;
 
         case 3:
-            // d) Array de vértices adjacentes a v
+            // d) Array of vertices adjacent to v
             scanf("%d", &x);
             
             if(res_vec != NULL)
@@ -273,7 +274,7 @@ int main() {
 
             res_vec = neighbors(G, x);
             last_op = 3;
-            print_status = 0; // Vamos printar apenas no final
+            print_status = 0; // Print only at the end
 
             break;
 
@@ -296,6 +297,7 @@ int main() {
         case 5:
             last_op = 5;
             print_status = 0;
+            
             break;
 
         case 6:
@@ -310,7 +312,7 @@ int main() {
             printf("unrecognized option %d!\n", option);
         }
 
-        scanf("%d\n", &option); // Analisar esse /n
+        scanf("%d\n", &option); // review whether this trailing \n is necessary
     }
 
     if(option == -1 && G != NULL){
